@@ -11,6 +11,7 @@ const ctx = canvas.getContext("2d");
 let gameOver = false;
 let gameStart = false;
 let gameLoaded = false;
+let changeDirection = false;
 
 // Scores
 let score = 0;
@@ -115,6 +116,7 @@ function reload() {
     return;
   }
   gameEnded();
+  changeDirection = false;
   // Game Board
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -132,22 +134,25 @@ function reload() {
 
 // Move Snake
 function moveSnake(e) {
-  if (e.key === "ArrowRight" && moveX != -1) {
-    moveX = 1;
-    moveY = 0;
-    gameStart = true;
-  } else if (e.key === "ArrowLeft" && moveX != 1) {
-    moveX = -1;
-    moveY = 0;
-    gameStart = true;
-  } else if (e.key === "ArrowUp" && moveY != 1) {
-    moveX = 0;
-    moveY = -1;
-    gameStart = true;
-  } else if (e.key === "ArrowDown" && moveY != -1) {
-    moveX = 0;
-    moveY = 1;
-    gameStart = true;
+  if (!changeDirection) {
+    changeDirection = true;
+    if (e.key === "ArrowRight" && moveX != -1) {
+      moveX = 1;
+      moveY = 0;
+      gameStart = true;
+    } else if (e.key === "ArrowLeft" && moveX != 1) {
+      moveX = -1;
+      moveY = 0;
+      gameStart = true;
+    } else if (e.key === "ArrowUp" && moveY != 1) {
+      moveX = 0;
+      moveY = -1;
+      gameStart = true;
+    } else if (e.key === "ArrowDown" && moveY != -1) {
+      moveX = 0;
+      moveY = 1;
+      gameStart = true;
+    }
   }
 }
 
