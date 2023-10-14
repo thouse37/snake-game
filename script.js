@@ -1,7 +1,6 @@
 "use strict";
 
 // ---Issues to fix---
-// Snake can sometimes turn back into itself.
 // When starting a new game, changing difficulty messes up the speed of the game.
 
 const canvas = document.querySelector(".canvas");
@@ -23,12 +22,12 @@ let foodY;
 
 // Canvas Properties
 let boxSize = 10;
-let columns = 50;
-let rows = 50;
+let columns = 38;
+let rows = 38;
 
 // Snake Properties
-let snakeX = boxSize * 25;
-let snakeY = boxSize * 25;
+let snakeX = boxSize * (columns / 2);
+let snakeY = boxSize * (rows / 2);
 let moveX = 0;
 let moveY = 0;
 
@@ -44,8 +43,8 @@ let gameDifficulty = easyMode;
 document.querySelector("#easy_mode").addEventListener("click", function () {
   if (gameDifficulty != easyMode) {
     gameDifficulty = easyMode;
-    snakeX = boxSize * 25;
-    snakeY = boxSize * 25;
+    snakeX = boxSize * (columns / 2);
+    snakeY = boxSize * (rows / 2);
     gameLoaded = false;
     loadGame();
     changeInstructions();
@@ -55,8 +54,8 @@ document.querySelector("#easy_mode").addEventListener("click", function () {
 document.querySelector("#hard_mode").addEventListener("click", function () {
   if (gameDifficulty != hardMode) {
     gameDifficulty = hardMode;
-    snakeX = boxSize * 25;
-    snakeY = boxSize * 25;
+    snakeX = boxSize * (columns / 2);
+    snakeY = boxSize * (rows / 2);
     gameLoaded = false;
     loadGame();
     changeInstructions();
@@ -66,8 +65,8 @@ document.querySelector("#hard_mode").addEventListener("click", function () {
 document.querySelector("#insane_mode").addEventListener("click", function () {
   if (gameDifficulty != insaneMode) {
     gameDifficulty = insaneMode;
-    snakeX = boxSize * 25;
-    snakeY = boxSize * 25;
+    snakeX = boxSize * (columns / 2);
+    snakeY = boxSize * (rows / 2);
     gameLoaded = false;
     loadGame();
     changeInstructions();
@@ -80,8 +79,8 @@ document.querySelector(".new-game").addEventListener("click", function () {
     document.querySelector(".score").innerHTML = "Score: 0";
     document.querySelector(".instructions").innerHTML =
       "Press Arrow Key to start!";
-    snakeX = boxSize * 25;
-    snakeY = boxSize * 25;
+    snakeX = boxSize * (columns / 2);
+    snakeY = boxSize * (rows / 2);
     moveX = 0;
     moveY = 0;
     score = 0;
@@ -90,6 +89,34 @@ document.querySelector(".new-game").addEventListener("click", function () {
     startFood();
     reload();
   }
+});
+
+// Map Size
+document.querySelector("#small").addEventListener("click", function () {
+  columns = 26;
+  rows = 26;
+  gameLoaded = false;
+  snakeX = boxSize * (columns / 2);
+  snakeY = boxSize * (rows / 2);
+  loadGame();
+});
+
+document.querySelector("#medium").addEventListener("click", function () {
+  columns = 38;
+  rows = 38;
+  gameLoaded = false;
+  snakeX = boxSize * (columns / 2);
+  snakeY = boxSize * (rows / 2);
+  loadGame();
+});
+
+document.querySelector("#large").addEventListener("click", function () {
+  columns = 50;
+  rows = 50;
+  gameLoaded = false;
+  snakeX = boxSize * (columns / 2);
+  snakeY = boxSize * (rows / 2);
+  loadGame();
 });
 
 // Load Game
@@ -160,8 +187,8 @@ function moveSnake(e) {
 function startFood() {
   const randomRow = Math.floor(Math.random() * rows);
   const randomColumn = Math.floor(Math.random() * columns);
-  foodX = boxSize * randomRow;
-  foodY = boxSize * randomColumn;
+  foodY = boxSize * randomRow;
+  foodX = boxSize * randomColumn;
 
   if (foodX == snakeX && foodY == snakeY) {
     startFood();
